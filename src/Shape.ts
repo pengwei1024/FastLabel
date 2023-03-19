@@ -162,7 +162,7 @@ export class Shape extends EventReceiver {
     const positions = this.getPositions()
     const style = this.getStyle()
     const { dotRadius } = style
-    const arcIndex = positions.findIndex((point) => isInCircle(offset, dotRadius * scale, point))
+    const arcIndex = positions.findIndex((point) => isInCircle(offset, dotRadius * scale * 5, point))
     return arcIndex
   }
   /**
