@@ -8,6 +8,7 @@ import xml.dom.minidom
 from ..utils import stringutil
 from ..dao.TaskDao import TaskDao
 from ..dao.RecordDao import RecordDao
+import xml.etree.ElementTree as xmlET
 
 mod = Blueprint('api', __name__, url_prefix='/api')
 # voc 目录名称
@@ -83,7 +84,6 @@ def list_dir(filepath, dataset, exist_list=[], root_path=''):
                     break
 
 
-@mod.route('/getTask', methods=['POST', 'GET'])
 def get_task():
     """
     获取任务详情
@@ -126,14 +126,14 @@ def get_task():
         voc_list = []
         # 存在过滤的列表
         exist_filter_list = []
-        should_filter = filter_key and len(filter_key.strip()) > 2
+        should_filter = filter_key and len(filter_key.strip()) > 0
         for i in exist_list:
             voc_file = get_voc_file(i, path)
             with open(voc_file, 'r') as f:
                 lines = f.readlines()
             content = ''.join(lines)
             if should_filter:
-                if filter_key in content:
+                if '<name>%s</name>' % filter_key in content:
                     voc_list.append(content)
                     exist_filter_list.append(i)
             else:
@@ -143,6 +143,28 @@ def get_task():
         result['existCount'] = 0
     # 需要保障 types 顺序，所以不能使用 jsonify
     return Response(json.dumps(result), mimetype='application/json')
+
+
+@mod.route('/get_task_statistics', methods=['POST', 'GET'])
+def get_task_statistics():
+    path = request.values.get('path', None)
+    path = os.path.join(path, VOC_DIR)
+    if not os.path.exists(path):
+        return jsonify({'msg': 'NOT FOUND: %s' % path})
+    dataset = os.listdir(path)
+    label_list = {}
+    for idx in range(len(dataset)):
+        filename = dataset[idx]
+        tree = xmlET.parse(os.path.join(path, filename))
+        objs = tree.findall('object')
+        for ix, obj in enumerate(objs):
+            cla = obj.find('name').text
+            if cla not in label_list:
+                label_list[cla] = 1
+            else:
+                label_list[cla] += 1
+    return jsonify({'code': 0, 'data': label_list})
+
 
 
 @mod.route('/createTask', methods=['POST'])

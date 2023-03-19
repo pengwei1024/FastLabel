@@ -141,6 +141,6 @@ dmypy.json
 cython_debug/
 
 # 项目
-dataFlow.db
+*.db
 logs/
 all-records/

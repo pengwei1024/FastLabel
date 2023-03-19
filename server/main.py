@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from app import instance
 # import sys
 # reload(sys)
