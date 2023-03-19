@@ -84,6 +84,7 @@ def list_dir(filepath, dataset, exist_list=[], root_path=''):
                     break
 
 
+@mod.route('/getTask', methods=['POST', 'GET'])
 def get_task():
     """
     获取任务详情
@@ -164,7 +165,6 @@ def get_task_statistics():
             else:
                 label_list[cla] += 1
     return jsonify({'code': 0, 'data': label_list})
-
 
 
 @mod.route('/createTask', methods=['POST'])

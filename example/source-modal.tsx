@@ -137,8 +137,10 @@ const SourceModal = () => {
             if (!i) {
                 continue
             }
-            let positions = [[i.bndbox.xmin, i.bndbox.ymin], [i.bndbox.xmax, i.bndbox.ymin],
-                [i.bndbox.xmax, i.bndbox.ymax], [i.bndbox.xmin, i.bndbox.ymax]] as Points
+            let positions = [[parseInt(i.bndbox.xmin), parseInt(i.bndbox.ymin)],
+                [parseInt(i.bndbox.xmax), parseInt(i.bndbox.ymin)],
+                [parseInt(i.bndbox.xmax), parseInt(i.bndbox.ymax)],
+                [parseInt(i.bndbox.xmin), parseInt(i.bndbox.ymax)]] as Points
             const shape = lb.createShape(i.name, {
                 positions
             })

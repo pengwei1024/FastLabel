@@ -1037,8 +1037,8 @@ export class Platform extends EventReceiver {
 		// 图形
 		const shapeStyle = {
 			lineColor,
-			lineWidth: lineWidth * scale + 1,
-			dotRadius: dotRadius * styleScale,
+			lineWidth: (lineWidth + 0.3) * scale,
+			dotRadius: (dotRadius + 2) * styleScale,
 			dotColor,
 			fillColor,
 			opacity: .7
