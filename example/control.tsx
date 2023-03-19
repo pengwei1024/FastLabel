@@ -186,7 +186,7 @@ const Control = () => {
                                 if (lb?.taskInfo?.type == TaskType.MULTI_IMG) {
                                     lb?.callDrawFinish(lb?.Image.filePath || '', exportVoc(), lb?.getShapeList() || [])
                                 }
-                            }}>标注完成下一张
+                            }}>保存标注并下一张
                             </Button>
                         </Col>
                     ) : (<Col span={8}>

@@ -28,4 +28,4 @@ test/
 dist/
 public/app.*
 .idea/
-label_sdk/
+fast_label_sdk/

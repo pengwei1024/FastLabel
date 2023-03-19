@@ -549,6 +549,13 @@ export class Platform extends EventReceiver {
 							}
 							this.render()
 							break
+						case FuncKeyCode.DELETE:
+							if(!position) break
+							if (this.activeShape) {
+								this.remove(this.activeShape)
+								this.render()
+							}
+							break
 					}
 				}
 				keyDownCode = keyCode
@@ -1037,7 +1044,7 @@ export class Platform extends EventReceiver {
 		// 图形
 		const shapeStyle = {
 			lineColor,
-			lineWidth: (lineWidth + 0.3) * scale,
+			lineWidth: (lineWidth + 0.7) * scale,
 			dotRadius: (dotRadius + 2) * styleScale,
 			dotColor,
 			fillColor,

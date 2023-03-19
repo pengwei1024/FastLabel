@@ -227,6 +227,9 @@ const SourceModal = () => {
                 if (!vocRes || vocRes.code != 0) {
                     message.warn(res.msg || '提交失败')
                 } else {
+                    // 替换本地的voc数据
+                    res.voc[index] = data;
+                    // 加载下一张
                     let last_index = ++index;
                     let error_count = 0;
                     while (!res.dataset[last_index] && error_count < 5) {
